@@ -48,7 +48,39 @@
 
 
             </div>
-            <div class="col-12 bg-light">
+            <div class="col-4">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        Valigia
+                    </a>
+                    <a ng-repeat="e in inValigia" href="#{{e.key}}"
+                        class="list-group-item list-group-item-action">{{e.name}}
+                        :
+                        {{e.value}}</a>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="list-group list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        Zaino
+                    </a>
+                    <a ng-repeat="e in inZaino" href="#{{e.key}}"
+                        class="list-group-item list-group-item-action">{{e.name}} :
+                        {{e.value}}</a>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        Sistemare
+                    </a>
+                    <a ng-repeat="e in controllare" href="#{{e.key}}"
+                        class="list-group-item list-group-item-action">{{e.name}} :
+                        {{e.value}}</a>
+                </div>
+            </div>
+
+            <div class="col-12 bg-light my-5">
                 <table class="table text-white">
                     <thead class="thead-dark w-100">
                         <tr>
@@ -100,9 +132,6 @@
 
         App.controller("AppController", function ($scope, IndexedDb) {
             $scope.pippo = IndexedDb;
-
-
-
             $scope.ListOfElement = [];
 
             $scope.ruleset = function (e) {
@@ -120,6 +149,9 @@
 
 
             this.$doCheck = async () => {
+                $scope.inValigia = $scope.ListOfElement !== undefined ? $scope.ListOfElement.filter(e => e.valigia) : [];
+                $scope.inZaino = $scope.ListOfElement !== undefined ? $scope.ListOfElement.filter(e => e.zaino) : [];
+                $scope.controllare = $scope.ListOfElement !== undefined ? $scope.ListOfElement.filter(e => e.preparazione || e.check) : [];
 
                 if (angular.equals(this.oldValue, $scope.ListOfElement) && this.oldValue !== undefined) {
                     await $scope.pippo.InsertData($scope.ListOfElement, 'insert')
