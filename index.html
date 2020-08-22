@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App" ng-controller="AppController">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Vacanze 2020</title>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/BrowserFS/2.0.0/browserfs.js"
+        integrity="sha512-3n3LJuXN2CDTF/87biXx288uEtlZpSCnhw9UGWwU1fReJCqM8vqzbMHHptgh6CCAZg+KSYVciVkivW5twgqpfA=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mongoose@5.10.0/dist/browser.umd.min.js"></script>
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+
+    <div class="container">
+        <h1 class="text-center">Title</h1>
+        <div class="row">
+            <div class="col-5">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Nome</span>
+                    </div>
+                    <input type="text" ng-model="element.name" ng-focus class="form-control" aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Valore</span>
+                    </div>
+                    <input type="number" ng-model="element.value" class="form-control" aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+            </div>
+            <div class="col-2">
+                <div class="col-1">
+                    <button ng-click="AddElement()" class="btn btn-primary">Salva</button>
+                </div>
+
+
+            </div>
+            <div class="col-12 bg-light">
+                <table class="table text-white">
+                    <thead class="thead-dark w-100">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Qtà</th>
+                            <th scope="col">Commenti</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="e in ListOfElement  track by $index" ng-class="ruleset(e)">
+                            <th scope="row">{{$index}}</th>
+                            <td class="text-uppercase text-bold align-items-center">{{e.name}}</td>
+                            <td>{{e.value}}</td>
+                            <td>
+                                <div class="input-group input-group-sm mb-3">
+                                    <textarea ng-model="e.commenti" class="form-control"
+                                        aria-label="With textarea"></textarea>
+                                </div>
+                            </td>
+                            <td>
+                                <button ng-click="ToggleValigia(e)"
+                                    class="btn btn-sm btn-success border border-dark my-1">Valigia</button>
+                                <button ng-click="ToggleZaino(e)"
+                                    class="btn btn-sm btn-secondary border border-dark">Zaino</button>
+                                <button ng-click="TogglePronto(e)"
+                                    class="btn btn-sm btn-warning border border-dark">Pronto</button>
+
+                                <button ng-click="ToggleCheck(e)"
+                                    class="btn btn-sm btn-info border border-dark">Check</button>
+
+                            </td>
+                            <td>
+                                <button ng-click="delete(e)" class="btn btn-secondary">Elimina</button>
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        var App = angular.module("App", []);
+
+        App.controller("AppController", function ($scope, IndexedDb) {
+            $scope.pippo = IndexedDb;
+
+
+
+            $scope.ListOfElement = [];
+
+            $scope.ruleset = function (e) {
+                var ruleset = {
+                    'bg-success': e.valigia,
+                    'bg-primary': e.zaino,
+                    'bg-danger': e.preparazione,
+                    'bg-warning': e.pronto,
+                    'text-dark': e.pronto,
+                    'bg-info': e.check
+
+                };
+                return ruleset;
+            };
+
+
+            this.$doCheck = async () => {
+
+                if (angular.equals(this.oldValue, $scope.ListOfElement) && this.oldValue !== undefined) {
+                    await $scope.pippo.InsertData($scope.ListOfElement, 'insert')
+                    this.oldValue = $scope.ListOfElement;
+                }
+
+            }
+
+
+
+
+            var element = function (name = "", value = 0) {
+                this.key;
+                this.name = name;
+                this.value = value;
+                this.preparazione = true;
+                this.valigia = false;
+                this.zaino = false;
+                this.pronto = false;
+                this.commenti = "";
+                this.check = false;
+
+            }
+
+
+
+            $scope.ToggleValigia = (element) => {
+                element.preparazione = false;
+                element.valigia = true;
+                element.zaino = false;
+                element.pronto = false;
+                element.check = false;
+
+            };
+
+            $scope.ToggleZaino = (element) => {
+                element.preparazione = false;
+                element.valigia = false;
+                element.zaino = true;
+                element.pronto = false;
+                element.check = false;
+            };
+
+            $scope.TogglePronto = (element) => {
+                element.preparazione = false;
+                element.valigia = false;
+                element.zaino = false;
+                element.pronto = true;
+                element.check = false;
+            };
+
+            $scope.ToggleCheck = (element) => {
+                element.preparazione = false;
+                element.valigia = false;
+                element.zaino = false;
+                element.pronto = false;
+                element.check = true;
+            };
+
+            $scope.delete = (element) => {
+                $scope.ListOfElement = $scope.ListOfElement.filter((e) => e !== element);
+                $scope.pippo.InsertData([], "delete", element.key)
+            }
+
+            $scope.element = new element();
+
+            $scope.AddElement = function () {
+                $scope.element.key = $scope.ListOfElement.length;
+                $scope.ListOfElement.push(angular.copy($scope.element));
+                console.log($scope.ListOfElement);
+            }
+
+            this.$onInit = async () => {
+
+                let pippo = await $scope.pippo.InsertData()
+                $scope.$apply(() => {
+                    $scope.ListOfElement = pippo;
+                })
+
+                console.log($scope.ListOfElement);
+                this.oldValue = $scope.ListOfElement;
+
+            }
+
+
+
+
+
+        });
+
+        function IndexedDb() {
+            this.InsertData = async function (ListOfElement, mode, key) {
+                return new Promise(function (resolve, reject) {
+                    this.request = window.indexedDB.open("Vacanze2020", 10);
+                    this.db;
+                    this.tx;
+                    this.index;
+                    this.store;
+                    this.result;
+
+                    this.request.onupgradeneeded = function (e) {
+                        let db = this.request.result;
+
+                        this.store = db.createObjectStore("ElementObjectStore", {
+                            keyPath: "key"
+                        });
+                        this.index = this.store.createIndex("key", "key", { unique: false });
+                        console.log("onupgradeneeded fired");
+                    }.bind(this);
+                    var result;
+
+                    this.request.onerror = function (e) { console.log(e); }
+                    this.request.onsuccess = function () {
+                        this.db = this.request.result;
+                        this.tx = this.db.transaction("ElementObjectStore", "readwrite");
+                        this.store = this.tx.objectStore("ElementObjectStore");
+                        //index = store.index("");
+                        this.db.onerror = function (e) { console.log(e); }
+                        if (mode == "insert") {
+                            for (let elem of ListOfElement) {
+                                this.store.put(elem);
+                            }
+                        }
+
+                        if (mode == 'delete') {
+                            this.store.delete(key);
+                        }
+
+                        var objectStoreRequest = this.store.getAll();
+
+                        objectStoreRequest.onsuccess = function () {
+
+                            this.result = objectStoreRequest.result;
+                            resolve(this.result)
+
+
+                        }
+
+                        this.db.close;
+
+
+
+                    }.bind(this);
+
+
+
+
+                })
+            }
+        }
+
+
+        App.service("IndexedDb", IndexedDb)
+
+
+    </script>
+</body>
+
+</html>
