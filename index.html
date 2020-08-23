@@ -13,22 +13,25 @@
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mongoose@5.10.0/dist/browser.umd.min.js"></script>
     <script src="./App.js"></script>
     <script src="./App.controller.js"></script>
+    <script src="./Components/navBarComponent/navBar.js"></script>
     <script src="./Components/InputComponent/InputComponent.js"></script>
+    <script src="./Components/recapComponent/recapComponent.js"></script>
     <script src="./Components/tableComponent/tableComponent.js"></script>
     <script></script>
-
+    <nav-bar></nav-bar>
     <div class="container-fluid">
         <h1 class="text-center my-5">Ti aiuto nell'organizzare le cose che ti devi portare..</h1>
         <input-component></input-component>
-    </div>
-    <div class="bg-light my-5">
-        <table-component></table-component>
+
     </div>
 
 
+
+    <ng-view></ng-view>
     <script type="text/javascript">
 
     </script>
