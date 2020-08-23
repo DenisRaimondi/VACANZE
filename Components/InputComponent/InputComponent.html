@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-12 col-sm-5">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Nome</span>
+            </div>
+            <input type="text" ng-model="element.name" ng-focus class="form-control" aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm">
+        </div>
+    </div>
+    <div class="col-12 col-sm-5">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Valore</span>
+            </div>
+            <input type="number" ng-model="element.value" class="form-control" aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm">
+        </div>
+
+    </div>
+    <div id="pulsante-inserisci" class="col-1">
+        <button ng-click="AddElement()" class="btn btn-primary">Inserisci</button>
+    </div>
+</div>
+<div class="row my-5">
+    <div id="valigia" class="col-12 col-sm-4 my-1">
+
+        <div class="list-group">
+            <button type="input" ng-click="pappo()" class="list-group-item list-group-item-action active">
+                Valigia
+            </button>
+            <a ng-if="checkedValigia" ng-click="console.log('clicked')" ng-repeat="e in inValigia" href="#{{e.key}}"
+                class="list-group-item list-group-item-action">{{e.name}}
+                :
+                {{e.value}}</a>
+        </div>
+    </div>
+    <div id="zaino" class="col-12 col-sm-4 my-1">
+        <div class="list-group list-group">
+            <button ng-click="ClickZaino()" class="list-group-item list-group-item-action active">
+                Zaino
+            </button>
+            <a ng-if="ClickedZaino" ng-repeat="e in inZaino" href="#{{e.key}}"
+                class="list-group-item list-group-item-action">{{e.name}}
+                :
+                {{e.value}}</a>
+        </div>
+    </div>
+    <div id="sistemare" class="col-12 col-sm-4 my-1">
+        <div class="list-group">
+            <button ng-click="ClickSistemare()" class="list-group-item list-group-item-action active">
+                Sistemare
+            </button>
+            <a ng-if="ClickedSistemare" ng-repeat="e in controllare"
+                class="list-group-item list-group-item-action">{{e.name}} :
+                {{e.value}}</a>
+        </div>
+    </div>
+</div>
