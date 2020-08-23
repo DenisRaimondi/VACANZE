@@ -105,19 +105,18 @@
                             </div>
                         </td>
                         <td>
-                            <button ng-click="ToggleValigia(e)"
-                                class="btn btn-sm btn-success border border-dark my-1">Valigia</button>
+                            <button ng-button title="valigia" ng-click="ToggleValigia(e)">{{title}}</button>
                             <button ng-click="ToggleZaino(e)"
-                                class="btn btn-sm btn-secondary border border-dark">Zaino</button>
+                                class="btn btn-sm btn-secondary border border-dark d-none d-sm-block">Zaino</button>
                             <button ng-click="TogglePronto(e)"
-                                class="btn btn-sm btn-warning border border-dark">Pronto</button>
+                                class="btn btn-sm btn-warning border border-dark d-none d-sm-block">Pronto</button>
                             <button ng-click="ToggleCheck(e)"
-                                class="btn btn-sm btn-info border border-dark">Check</button>
+                                class="btn btn-sm btn-info border border-dark d-none d-sm-block">Check</button>
 
                         </td>
 
                         <td>
-                            <button ng-click="delete(e)" class="btn btn-secondary">Elimina</button>
+                            <button ng-click="delete(e)" class="btn btn-secondary d-none d-sm-block">Elimina</button>
                         </td>
 
                     </tr>
@@ -150,6 +149,17 @@
                 };
                 return ruleset;
             };
+
+            var width = $(window).width();
+            $(window).on('resize', function () {
+                if ($(this).width() > 600) {
+                    $scope.notMobile = true;
+                }
+                else {
+                    $scope.notMobile = false;
+                }
+            });
+
 
             $scope.pappo = () => {
 
@@ -230,6 +240,7 @@
                 element.pronto = false;
                 element.check = true;
             };
+
 
             $scope.delete = (element) => {
                 $scope.ListOfElement = $scope.ListOfElement.filter((e) => e !== element);
@@ -327,6 +338,41 @@
 
         App.service("IndexedDb", IndexedDb)
 
+        App.directive("ngButton", function () {
+
+
+
+            return {
+                link: function (scope, element = $(""), attribute, controller) {
+
+                    element.addClass("btn btn-sm  btn-success border border-dark my-1 d-none d-sm-block");
+
+                    if (scope.e.valigia) {
+                        element.hide();
+                    }
+
+
+                    scope.title = "Valigia";
+                },
+
+                controller: function ($scope, $element) {
+                    $scope.$watch("e.valigia", function (newValue, oldValue) {
+                        if (oldValue != newValue) {
+                            if (!newValue) {
+                                $element.show();
+                            } else {
+                                $element.hide();
+                            }
+                        }
+                    });
+                }
+
+
+
+
+            }
+
+        })
 
     </script>
 </body>
