@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Vacanze 2020</title>
 </head>
@@ -41,12 +41,12 @@
                 </div>
 
             </div>
-            <div class="col-1">
-                <button ng-click="AddElement()" class="btn btn-primary">Salva</button>
+            <div id="pulsante-inserisci" class="col-1">
+                <button ng-click="AddElement()" class="btn btn-primary">Inserisci</button>
             </div>
         </div>
         <div class="row my-5">
-            <div class="col-4">
+            <div id="valigia" class="col-12 col-sm-4 my-1">
 
                 <div class="list-group">
                     <button type="input" ng-click="pappo()" class="list-group-item list-group-item-action active">
@@ -58,23 +58,23 @@
                         {{e.value}}</a>
                 </div>
             </div>
-            <div class="col-4">
+            <div id="zaino" class="col-12 col-sm-4 my-1">
                 <div class="list-group list-group">
-                    <a ng-click="ClickZaino()" href="#" class="list-group-item list-group-item-action active">
+                    <button ng-click="ClickZaino()" class="list-group-item list-group-item-action active">
                         Zaino
-                    </a>
+                    </button>
                     <a ng-if="ClickedZaino" ng-repeat="e in inZaino" href="#{{e.key}}"
                         class="list-group-item list-group-item-action">{{e.name}}
                         :
                         {{e.value}}</a>
                 </div>
             </div>
-            <div class="col-4">
+            <div id="sistemare" class="col-12 col-sm-4 my-1">
                 <div class="list-group">
-                    <a ng-click="ClickSistemare()" href="#" class="list-group-item list-group-item-action active">
+                    <button ng-click="ClickSistemare()" class="list-group-item list-group-item-action active">
                         Sistemare
-                    </a>
-                    <a ng-if="ClickedSistemare" ng-repeat="e in controllare" href="#{{e.key}}"
+                    </button>
+                    <a ng-if="ClickedSistemare" ng-repeat="e in controllare"
                         class="list-group-item list-group-item-action">{{e.name}} :
                         {{e.value}}</a>
                 </div>
@@ -111,17 +111,17 @@
                                 class="btn btn-sm btn-secondary border border-dark">Zaino</button>
                             <button ng-click="TogglePronto(e)"
                                 class="btn btn-sm btn-warning border border-dark">Pronto</button>
-
                             <button ng-click="ToggleCheck(e)"
                                 class="btn btn-sm btn-info border border-dark">Check</button>
 
                         </td>
+
                         <td>
                             <button ng-click="delete(e)" class="btn btn-secondary">Elimina</button>
                         </td>
 
-
                     </tr>
+
                 </tbody>
             </table>
         </div>
