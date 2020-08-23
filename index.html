@@ -81,7 +81,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 bg-light my-5">
+    <div class="bg-light my-5">
         <table class="table text-white">
             <thead class="thead-dark">
                 <tr>
@@ -103,7 +103,7 @@
                             <textarea ng-model="e.commenti" class="form-control" aria-label="With textarea"></textarea>
                         </div>
                     </td>
-                    <td>
+                    <td class="d-flex justify-content-between">
                         <button ng-button title="valigia" ng-click="ToggleValigia(e)">{{title}}</button>
                         <button ng-click="ToggleZaino(e)"
                             class="btn btn-sm btn-secondary border border-dark d-none d-sm-block">Zaino</button>
@@ -344,10 +344,10 @@
             return {
                 link: function (scope, element = $(""), attribute, controller) {
 
-                    element.addClass("btn btn-sm  btn-success border border-dark my-1 d-none d-sm-block");
+                    element.addClass("btn btn-sm  btn-success border border-dark d-none d-sm-block");
 
                     if (scope.e.valigia) {
-                        element.hide();
+                        element.addClass("d-none");
                     }
 
 
