@@ -2,7 +2,7 @@ App.controller("AppController", function ($scope, IndexedDb) {
   $scope.pippo = IndexedDb;
   $scope.ListOfElement = [];
 
-  $scope.checkedValigia = false;
+  $scope.checkedValigia = true;
 
   $scope.ruleset = function (e) {
     var ruleset = {
@@ -20,13 +20,13 @@ App.controller("AppController", function ($scope, IndexedDb) {
     $scope.checkedValigia = !$scope.checkedValigia;
   };
 
-  $scope.ClickedZaino = false;
+  $scope.ClickedZaino = true;
 
   $scope.ClickZaino = function () {
     $scope.ClickedZaino = !$scope.ClickedZaino;
   };
 
-  $scope.ClickedSistemare = false;
+  $scope.ClickedSistemare = true;
 
   $scope.ClickSistemare = function () {
     $scope.ClickedSistemare = !$scope.ClickedSistemare;

@@ -4,7 +4,8 @@
     <div id="valigia" class="col-12 col-sm-4 my-1">
 
         <div class="list-group">
-            <button type="input" ng-click="pappo()" class="list-group-item list-group-item-action active">
+            <button type="input" ng-click="pappo()"
+                class="list-group-item list-group-item-action bg-success text-white">
                 Valigia
             </button>
             <a ng-if="checkedValigia" ng-click="console.log('clicked')" ng-repeat="e in inValigia" href="#{{e.key}}"
@@ -26,7 +27,7 @@
     </div>
     <div id="sistemare" class="col-12 col-sm-4 my-1">
         <div class="list-group">
-            <button ng-click="ClickSistemare()" class="list-group-item list-group-item-action active">
+            <button ng-click="ClickSistemare()" class="list-group-item list-group-item-action bg-danger text-white">
                 Sistemare
             </button>
             <a ng-if="ClickedSistemare" ng-repeat="e in controllare"
