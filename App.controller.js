@@ -61,10 +61,10 @@ App.controller("AppController", function ($scope, IndexedDb) {
     $scope.clickedValigia = false;
   };
 
-  var element = function (name = "", value = 0) {
+  var element = function (name = "") {
     this.key;
     this.name = name;
-    this.value = value;
+    this.value;
     this.preparazione = true;
     this.valigia = false;
     this.zaino = false;

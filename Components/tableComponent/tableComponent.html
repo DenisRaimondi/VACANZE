@@ -13,8 +13,15 @@
         <tbody>
             <tr ng-repeat="e in ListOfElement  track by $index" ng-class="ruleset(e)">
                 <th scope="row">{{$index}}</th>
-                <td class="text-uppercase text-bold align-items-center">{{e.name}}</td>
-                <td>{{e.value}}</td>
+                <td class="text-uppercase text-bold align-items-center">
+                    {{e.name}}
+                </td>
+                <td>
+                    <div class="input-group mb-3">
+                        <input type="number" ng-model="e.value" class="form-control" aria-label="Small"
+                            aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                </td>
                 <td>
                     <div class="input-group input-group-sm mb-3">
                         <textarea ng-model="e.commenti" class="form-control" aria-label="With textarea"></textarea>
